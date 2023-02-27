@@ -1,10 +1,10 @@
-import { PHOTOS_MOCK } from '@core/constants/photo';
+import { PHOTO_NAMES } from '@core/constants/photo';
 import { UtilsService } from '../utils.service';
 
 import { PhotoMockService } from './photo-mock.service';
 
 
-const RANDOM_ELEMENT_MOCK = PHOTOS_MOCK[0];
+const RANDOM_ELEMENT_MOCK = { id: 'random-element-id' } as any;
 
 describe('PhotoMockService', () => {
   let service: PhotoMockService;
@@ -40,15 +40,15 @@ describe('PhotoMockService', () => {
       const n = 2;
       service.getRandomPhotos(n)
         .subscribe((photos) => {
-          expect(photos).toEqual(PHOTOS_MOCK.slice(0, n));
+          expect(photos.length).toEqual(n);
           done();
         });
     });
   });
 
   describe('#getPhoto', () => {
-    it('should return a photo with specified if from a mock array', (done) => {
-      const id = 'id-1';
+    it('should return a photo with specified id from a mock array', (done) => {
+      const id = PHOTO_NAMES[0];
       service.getPhoto(id)
         .subscribe((photo) => {
           expect(photo.id).toEqual(id);
