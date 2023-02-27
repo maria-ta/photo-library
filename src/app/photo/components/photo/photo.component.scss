@@ -1,0 +1,14 @@
+$image-size: 320px;
+
+.photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photo-image {
+    width: $image-size;
+    height: $image-size;
+    margin-bottom: 1rem;
+    object-fit: cover;
+}

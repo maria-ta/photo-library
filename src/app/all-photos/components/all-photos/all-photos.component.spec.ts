@@ -1,6 +1,5 @@
 import { fakeAsync, flush } from '@angular/core/testing';
 import { Photo } from '@core/models';
-import { PhotoService } from '@core/services/photo/photo-service';
 import { of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -15,13 +14,13 @@ const PHOTOS_MOCK: Photo[] = [
 describe('AllPhotosComponent', () => {
   let component: AllPhotosComponent;
 
-  let photoServiceMock: PhotoService;
+  let photoServiceMock: any;
 
   beforeEach(async () => {
     photoServiceMock = {
       getRandomPhotos: jasmine.createSpy().and.returnValue(of([])),
       getRandomPhoto: jasmine.createSpy().and.returnValue(throwError(() => ({}))),
-    } as PhotoService;
+    };
     component = new AllPhotosComponent(photoServiceMock);
   });
 

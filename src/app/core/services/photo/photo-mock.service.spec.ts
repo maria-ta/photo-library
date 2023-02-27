@@ -45,4 +45,26 @@ describe('PhotoMockService', () => {
         });
     });
   });
+
+  describe('#getPhoto', () => {
+    it('should return a photo with specified if from a mock array', (done) => {
+      const id = 'id-1';
+      service.getPhoto(id)
+        .subscribe((photo) => {
+          expect(photo.id).toEqual(id);
+          done();
+        });
+    });
+
+    it('should throw an error when no photo with such id in a mock array', (done) => {
+      const id = 'id-which-does-not-exist';
+      service.getPhoto(id)
+        .subscribe({
+          error: (err) => {
+            expect(err.status).toEqual(404);
+            done();
+          }
+        });
+    });
+  });
 });

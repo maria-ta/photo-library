@@ -4,8 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     loadChildren: () => import('./all-photos/all-photos.module').then((m) => m.AllPhotosModule)
+  },
+  {
+    path: 'photo',
+    loadChildren: () => import('./photo/photo.module').then((m) => m.PhotoModule)
   },
   {
     path: '**',
