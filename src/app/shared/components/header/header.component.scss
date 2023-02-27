@@ -1,0 +1,10 @@
+@import "src/styles/variables";
+
+.header {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    padding: 1rem calc((100% - $content-width) / 2);
+    gap: 1rem;
+    background-color: $background-toned-color;
+}

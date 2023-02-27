@@ -1,0 +1,13 @@
+@import "src/styles/variables";
+
+$space: 3rem;
+
+.header {
+    display: block;
+    margin-bottom: $space;
+}
+
+.main {
+    margin-bottom: $space;
+    padding: 0 calc((100% - $content-width) / 2);
+}
