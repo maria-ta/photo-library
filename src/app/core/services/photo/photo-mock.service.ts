@@ -123,6 +123,6 @@ export class PhotoMockService implements PhotoService {
       },
       views: 12345,
       downloads: 6789
-    }
+    };
   }
 }

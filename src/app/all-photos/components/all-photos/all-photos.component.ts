@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { switchMap, tap, takeUntil } from 'rxjs/operators';
 import { PhotoService, PHOTO_SERVICE } from '@core/services/photo/photo-service';
 import { Photo } from '@core/models';
+import { FavoritesService } from '@core/services/favorites.service';
 
 const NUMBER_OF_PHOTOS_TO_LOAD = 6;
 
@@ -18,7 +19,8 @@ export class AllPhotosComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   constructor(
-    @Inject(PHOTO_SERVICE) private readonly photoService: PhotoService
+    @Inject(PHOTO_SERVICE) private readonly photoService: PhotoService,
+    private readonly favoritesService: FavoritesService,
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,10 @@ export class AllPhotosComponent implements OnInit, OnDestroy {
 
   loadMore(): void {
     this.load$.next();
+  }
+
+  toggleFavorite(photo: Photo): void {
+    this.favoritesService.toggleFavourites(photo);
   }
 
   private subscribeToLoadMore(): void {

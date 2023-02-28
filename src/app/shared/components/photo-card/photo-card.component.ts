@@ -1,3 +1,5 @@
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -7,7 +9,6 @@ import {
   ViewChild
 } from '@angular/core';
 import { Photo } from '@core/models';
-import { FavoritesService } from '@core/services/favorites.service';
 
 @Component({
   selector: 'app-photo-card',
@@ -17,12 +18,13 @@ import { FavoritesService } from '@core/services/favorites.service';
 export class PhotoCardComponent implements AfterViewInit {
   @Input() photo?: Photo;
 
+  @Output() imageClick = new EventEmitter<void>();
+
   @ViewChild('image') imageElementRef?: ElementRef;
 
   imageSize = 0;
 
   constructor(
-    private readonly favoritesService: FavoritesService,
     private readonly cd: ChangeDetectorRef
   ) { }
 
@@ -31,9 +33,7 @@ export class PhotoCardComponent implements AfterViewInit {
     this.cd.detectChanges();
   }
 
-  toggleFavorite(): void {
-    if (this.photo) {
-      this.favoritesService.toggleFavourites(this.photo);
-    }
+  clickImage(): void {
+    this.imageClick.emit();
   }
 }

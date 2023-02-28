@@ -87,5 +87,5 @@ describe('FavoritesService', () => {
 
       service.toggleFavourites({ id } as any);
     });
-  })
+  });
 });

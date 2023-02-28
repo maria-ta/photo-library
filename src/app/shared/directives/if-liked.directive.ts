@@ -2,7 +2,6 @@ import { ViewContainerRef } from '@angular/core';
 import { Input } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { OnChanges } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { Directive } from '@angular/core';
 import { FavoritesService } from '@core/services/favorites.service';

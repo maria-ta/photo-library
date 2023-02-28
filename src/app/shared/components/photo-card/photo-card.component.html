@@ -6,7 +6,7 @@
         [src]="photo.urls.small"
         [alt]="photo.alt_description"
         [ngStyle]="{'height.px': imageSize}"
-        (click)="toggleFavorite()"
+        (click)="clickImage()"
     >
     <mat-card-content>
         <p>
@@ -21,7 +21,7 @@
                 mat-mini-fab
                 class="photo-like-button"
                 aria-label="Like"
-                (click)="toggleFavorite()"
+                (click)="clickImage()"
             >
                 <mat-icon>favorite</mat-icon>
             </button>

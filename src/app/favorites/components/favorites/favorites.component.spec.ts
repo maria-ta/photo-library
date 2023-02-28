@@ -7,10 +7,14 @@ const FAVORITES_MOCK = ['ID-123', 'abcdefg'];
 describe('FavoritesComponent', () => {
   let component: FavoritesComponent;
 
+  let routerMock: any;
   let favoritesServiceMock: any;
   let photoServiceMock: any;
 
   beforeEach(async () => {
+    routerMock = {
+      navigate: jasmine.createSpy(),
+    };
     favoritesServiceMock = {
       getFavorites$: jasmine.createSpy().and.returnValue(of(FAVORITES_MOCK))
     };
@@ -18,6 +22,7 @@ describe('FavoritesComponent', () => {
       getPhoto: jasmine.createSpy().and.callFake((id) => of({ id }))
     };
     component = new FavoritesComponent(
+      routerMock,
       favoritesServiceMock,
       photoServiceMock
     );
@@ -37,5 +42,15 @@ describe('FavoritesComponent', () => {
       expect(photos).toEqual(expectedPhotosDetails);
       done();
     });
-  })
+  });
+
+  describe('#goToPhoto', () => {
+    it('should toggle favorite for photo', () => {
+      const photo = { id: 'photoId' } as any;
+
+      component.goToPhoto(photo);
+
+      expect(routerMock.navigate).toHaveBeenCalledWith(['/photo', photo.id]);
+    });
+  });
 });

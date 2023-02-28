@@ -7,6 +7,7 @@ import { UnsplashLinkPipe } from './pipes/unsplash-link.pipe';
 import { IfLikedDirective } from './directives/if-liked.directive';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -29,6 +30,7 @@ const PIPES = [
   ],
   imports: [
     CommonModule,
+    RouterModule,
     MatButtonModule,
     MatCardModule,
     MatIconModule,

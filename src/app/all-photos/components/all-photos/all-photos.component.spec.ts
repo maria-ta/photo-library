@@ -15,13 +15,17 @@ describe('AllPhotosComponent', () => {
   let component: AllPhotosComponent;
 
   let photoServiceMock: any;
+  let favoritesServiceMock: any;
 
   beforeEach(async () => {
     photoServiceMock = {
       getRandomPhotos: jasmine.createSpy().and.returnValue(of([])),
       getRandomPhoto: jasmine.createSpy().and.returnValue(throwError(() => ({}))),
     };
-    component = new AllPhotosComponent(photoServiceMock);
+    favoritesServiceMock = {
+      toggleFavourites: jasmine.createSpy()
+    };
+    component = new AllPhotosComponent(photoServiceMock, favoritesServiceMock);
   });
 
   it('should create', () => {
@@ -75,5 +79,15 @@ describe('AllPhotosComponent', () => {
 
       expect(component.photos).toEqual([]);
     }));
+  });
+
+  describe('#toggleFavorite', () => {
+    it('should toggle favorite for photo', () => {
+      const photo = { id: 'photoId' } as any;
+
+      component.toggleFavorite(photo);
+
+      expect(favoritesServiceMock.toggleFavourites).toHaveBeenCalledWith(photo);
+    });
   });
 });

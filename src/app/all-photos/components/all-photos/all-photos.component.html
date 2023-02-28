@@ -3,5 +3,6 @@
         *ngFor="let photo of photos"
         class="photo"
         [photo]="photo"
+        (imageClick)="toggleFavorite(photo)"
     ></app-photo-card>
 </div>

@@ -17,7 +17,7 @@ describe('PhotoComponent', () => {
     };
     photoServiceMock = {
       getPhoto: jasmine.createSpy().and.callFake((id) => of({ id }))
-    }
+    };
     component = new PhotoComponent(
       routeMock,
       photoServiceMock
