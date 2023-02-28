@@ -21,6 +21,7 @@ import { BROWSER_STORAGE } from '@core/injection-tokens';
   ],
   providers: [
     { provide: PHOTO_SERVICE, useClass: PhotoMockService },
+    { provide: Window, useValue: window },
     { provide: BROWSER_STORAGE, useValue: localStorage }
   ],
   bootstrap: [AppComponent]

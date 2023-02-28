@@ -26,7 +26,10 @@ export class PhotoMockService implements PhotoService {
   }
 
   getRandomPhotos(n: number): Observable<Photo[]> {
-    return of(this.mockPhotos.slice(0, n));
+    const arr: Photo[] = Array(n)
+      .fill(n)
+      .map(() => this.utilsService.getRandomElementFromArray(this.mockPhotos));
+    return of(arr);
   }
 
   getPhoto(id: string): Observable<Photo> {
