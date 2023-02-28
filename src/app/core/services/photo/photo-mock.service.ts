@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
 import { PHOTO_NAMES } from '@core/constants/photo';
-import { PhotoService } from './photo-service';
+import { PhotoServiceInterface } from './photo-service.interface';
 import { Photo } from '@core/models';
 import { UtilsService } from '../utils.service';
 import { throwError } from 'rxjs';
@@ -16,7 +16,7 @@ const MAX_DELAY = 300;
 @Injectable({
   providedIn: 'root'
 })
-export class PhotoMockService implements PhotoService {
+export class PhotoMockService implements PhotoServiceInterface {
   private readonly mockPhotos: Photo[] = PHOTO_NAMES
     .map((photoName) => this.getMockPhotoData(photoName));
 

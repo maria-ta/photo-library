@@ -1,3 +1,4 @@
+export * from './app-config';
 export * from './dictionary';
 export * from './exif';
 export * from './location';

@@ -1,9 +1,7 @@
-import { Inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Photo } from '@core/models';
-import { FavoritesService } from '@core/services/favorites.service';
-import { PhotoService, PHOTO_SERVICE } from '@core/services/photo/photo-service';
+import { FavoritesService, PhotoService } from '@core/services';
 import { combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -22,7 +20,7 @@ export class FavoritesComponent {
   constructor(
     private readonly router: Router,
     private readonly favoritesService: FavoritesService,
-    @Inject(PHOTO_SERVICE) private readonly photoService: PhotoService
+    private readonly photoService: PhotoService
   ) { }
 
   goToPhoto(photo: Photo): void {

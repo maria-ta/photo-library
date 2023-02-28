@@ -5,9 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '@shared/shared.module';
-import { PHOTO_SERVICE } from '@core/services';
-import { PhotoMockService } from '@core/services';
 import { BROWSER_STORAGE } from '@core/injection-tokens';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,10 +16,10 @@ import { BROWSER_STORAGE } from '@core/injection-tokens';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     SharedModule
   ],
   providers: [
-    { provide: PHOTO_SERVICE, useClass: PhotoMockService },
     { provide: Window, useValue: window },
     { provide: BROWSER_STORAGE, useValue: localStorage }
   ],

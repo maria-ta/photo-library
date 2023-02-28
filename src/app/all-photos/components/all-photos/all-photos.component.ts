@@ -10,9 +10,8 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { switchMap, tap, takeUntil } from 'rxjs/operators';
-import { PhotoService, PHOTO_SERVICE } from '@core/services/photo/photo-service';
 import { Photo } from '@core/models';
-import { FavoritesService } from '@core/services/favorites.service';
+import { FavoritesService, PhotoService } from '@core/services';
 
 const INITIAL_NUMBER_OF_PHOTOS_TO_LOAD = 9;
 const NUMBER_OF_PHOTOS_TO_LOAD = 3;
@@ -37,7 +36,7 @@ export class AllPhotosComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(Window) private readonly window: Window,
     private readonly cd: ChangeDetectorRef,
-    @Inject(PHOTO_SERVICE) private readonly photoService: PhotoService,
+    private readonly photoService: PhotoService,
     private readonly favoritesService: FavoritesService,
   ) { }
 

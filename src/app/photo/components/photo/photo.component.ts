@@ -1,7 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Photo } from '@core/models';
-import { PhotoService, PHOTO_SERVICE } from '@core/services/photo/photo-service';
+import { PhotoService } from '@core/services';
 import { switchMap } from 'rxjs';
 import { Observable } from 'rxjs';
 
@@ -15,7 +15,7 @@ export class PhotoComponent {
 
   constructor(
     private readonly route: ActivatedRoute,
-    @Inject(PHOTO_SERVICE) private readonly photoService: PhotoService
+    private readonly photoService: PhotoService
   ) { }
 
   private getPhoto(): Observable<Photo> {
