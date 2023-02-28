@@ -6,6 +6,7 @@
         [src]="photo.urls.small"
         [alt]="photo.alt_description"
         [ngStyle]="{'height.px': imageSize}"
+        (click)="toggleFavorite()"
     >
     <mat-card-content>
         <p>
@@ -14,14 +15,16 @@
                 {{photo.user.name}}
             </a>
             on <a [href]="'https://unsplash.com/' | unsplashLink">Unsplash</a>
+
+            <button
+                *appIfLiked="photo.id"
+                mat-mini-fab
+                class="photo-like-button"
+                aria-label="Like"
+                (click)="toggleFavorite()"
+            >
+                <mat-icon>favorite</mat-icon>
+            </button>
         </p>
     </mat-card-content>
 </mat-card>
-
-<button
-    mat-mini-fab
-    class="photo-like-button"
-    aria-label="Like"
->
-    <mat-icon>favorite_outline</mat-icon>
-</button>

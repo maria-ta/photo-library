@@ -6,14 +6,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AllPhotosRoutingModule } from './all-photos-routing.module';
-import { AllPhotosComponent, PhotoCardComponent } from './components';
+import { AllPhotosComponent } from './components';
 import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    AllPhotosComponent,
-    PhotoCardComponent
+    AllPhotosComponent
   ],
   imports: [
     CommonModule,

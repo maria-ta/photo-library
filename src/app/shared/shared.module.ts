@@ -2,11 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
-import { HeaderComponent } from './components';
+import { HeaderComponent, PhotoCardComponent } from './components';
 import { UnsplashLinkPipe } from './pipes/unsplash-link.pipe';
+import { IfLikedDirective } from './directives/if-liked.directive';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 const COMPONENTS = [
-  HeaderComponent
+  HeaderComponent,
+  PhotoCardComponent,
+];
+
+const DIRECTIVES = [
+  IfLikedDirective
 ];
 
 const PIPES = [
@@ -15,15 +23,19 @@ const PIPES = [
 
 @NgModule({
   declarations: [
-    HeaderComponent,
-    UnsplashLinkPipe
+    ...COMPONENTS,
+    ...DIRECTIVES,
+    ...PIPES,
   ],
   imports: [
     CommonModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
   ],
   exports: [
     ...COMPONENTS,
+    ...DIRECTIVES,
     ...PIPES
   ]
 })

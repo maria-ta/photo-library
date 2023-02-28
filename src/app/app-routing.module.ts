@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./photo/photo.module').then((m) => m.PhotoModule)
   },
   {
+    path: 'favorites',
+    loadChildren: () => import('./favorites/favorites.module').then((m) => m.FavoritesModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

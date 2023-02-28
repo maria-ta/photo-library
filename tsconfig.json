@@ -11,6 +11,9 @@
       "@core/*": [
         "src/app/core/*"
       ],
+      "@favorites/*": [
+        "src/app/favorites/*"
+      ],
       "@photo/*": [
         "src/app/photo/*"
       ],
