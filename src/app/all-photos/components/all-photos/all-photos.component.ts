@@ -1,5 +1,6 @@
 import {
   Component,
+  ChangeDetectorRef,
   Inject,
   OnInit,
   OnDestroy,
@@ -35,6 +36,7 @@ export class AllPhotosComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(Window) private readonly window: Window,
+    private readonly cd: ChangeDetectorRef,
     @Inject(PHOTO_SERVICE) private readonly photoService: PhotoService,
     private readonly favoritesService: FavoritesService,
   ) { }
@@ -78,6 +80,7 @@ export class AllPhotosComponent implements OnInit, OnDestroy {
         tap((photos) => {
           this.photos.push(...photos);
           this.isLoading = false;
+          this.cd.detectChanges();
         }),
         takeUntil(this.destroy$)
       )

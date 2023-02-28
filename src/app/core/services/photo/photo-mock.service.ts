@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 import { PHOTO_NAMES } from '@core/constants/photo';
 import { PhotoService } from './photo-service';
 import { Photo } from '@core/models';
 import { UtilsService } from '../utils.service';
 import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+
+const MIN_DELAY = 200;
+const MAX_DELAY = 300;
 
 /**
  * To be used for local development when there is no need to call API.
@@ -22,14 +25,20 @@ export class PhotoMockService implements PhotoService {
   ) { }
 
   getRandomPhoto(): Observable<Photo> {
-    return of(this.utilsService.getRandomElementFromArray(this.mockPhotos));
+    return of(this.utilsService.getRandomElementFromArray(this.mockPhotos))
+      .pipe(
+        delay(this.getRandomDelay())
+      );
   }
 
   getRandomPhotos(n: number): Observable<Photo[]> {
     const arr: Photo[] = Array(n)
       .fill(n)
       .map(() => this.utilsService.getRandomElementFromArray(this.mockPhotos));
-    return of(arr);
+    return of(arr)
+      .pipe(
+        delay(this.getRandomDelay())
+      );
   }
 
   getPhoto(id: string): Observable<Photo> {
@@ -127,5 +136,9 @@ export class PhotoMockService implements PhotoService {
       views: 12345,
       downloads: 6789
     };
+  }
+
+  private getRandomDelay(): number {
+    return this.utilsService.getRandomNumber(MIN_DELAY, MAX_DELAY);
   }
 }

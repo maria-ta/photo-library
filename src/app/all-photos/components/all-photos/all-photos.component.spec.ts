@@ -46,6 +46,7 @@ describe('AllPhotosComponent', () => {
   let component: AllPhotosComponent;
 
   let windowMock: any;
+  let changeDetectorRefMock: any;
   let photoServiceMock: any;
   let favoritesServiceMock: any;
 
@@ -55,6 +56,9 @@ describe('AllPhotosComponent', () => {
         height: VIEWPORT_HEIGHT,
       }
     };
+    changeDetectorRefMock = {
+      detectChanges: jasmine.createSpy()
+    };
     photoServiceMock = {
       getRandomPhotos: jasmine.createSpy()
         .and.callFake((n) => of(getMockPhotoArrayOfLength(n)).pipe(delay(DELAY_MILISECONDS))),
@@ -63,7 +67,12 @@ describe('AllPhotosComponent', () => {
     favoritesServiceMock = {
       toggleFavourites: jasmine.createSpy()
     };
-    component = new AllPhotosComponent(windowMock, photoServiceMock, favoritesServiceMock);
+    component = new AllPhotosComponent(
+      windowMock,
+      changeDetectorRefMock,
+      photoServiceMock,
+      favoritesServiceMock
+    );
   });
 
   it('should create', () => {
@@ -72,24 +81,11 @@ describe('AllPhotosComponent', () => {
 
   describe('#ngOnInit', () => {
     it('should get intial number of photos', fakeAsync(() => {
-      const expectedPhotos = [
-        { id: 'id-0' },
-        { id: 'id-1' },
-        { id: 'id-2' },
-
-        { id: 'id-3' },
-        { id: 'id-4' },
-        { id: 'id-5' },
-
-        { id: 'id-6' },
-        { id: 'id-7' },
-        { id: 'id-8' }
-      ] as any;
-
       component.ngOnInit();
       tick(AWAIT_DELAY_MILISECONDS);
 
-      expect(component.photos).toEqual(expectedPhotos);
+      expect(component.photos).toEqual(INITIAL_PHOTOS_MOCK);
+      expect(changeDetectorRefMock.detectChanges).toHaveBeenCalled();
     }));
 
     it('should not update photos after component destroy', fakeAsync(() => {
@@ -98,6 +94,7 @@ describe('AllPhotosComponent', () => {
       tick(AWAIT_DELAY_MILISECONDS);
 
       expect(component.photos).toEqual([]);
+      expect(changeDetectorRefMock.detectChanges).not.toHaveBeenCalled();
     }));
   });
 

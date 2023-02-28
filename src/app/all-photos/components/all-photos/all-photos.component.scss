@@ -1,10 +1,18 @@
 $photos-per-row: 3;
 $gap: 16px;
 
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
 .photos {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    width: 100%;
 }
 
 .photo {
