@@ -4,9 +4,13 @@ import { Router } from '@angular/router';
 import { APP_TITLE_POSTFIX } from '@core/constants/app-title';
 import { Photo } from '@core/models';
 import { FavoritesService, PhotoService } from '@core/services';
-import { combineLatest } from 'rxjs';
-import { switchMap } from 'rxjs';
-import { Observable } from 'rxjs';
+import {
+  combineLatest,
+  Observable,
+  of,
+  switchMap
+} from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-favorites',
@@ -16,8 +20,14 @@ import { Observable } from 'rxjs';
 export class FavoritesComponent implements OnInit {
   photos$: Observable<Photo[]> = this.favoritesService.getFavorites$()
     .pipe(
-      switchMap((ids) => combineLatest(ids.map((id) => this.photoService.getPhoto(id))))
-    );
+      switchMap((ids) => {
+        return combineLatest(
+          ids.map((id) => this.photoService.getPhoto(id).pipe(catchError(() => of(null))))
+        ).pipe(
+          map((details) => details.filter((photo) => !!photo))
+        );
+      })
+    ) as Observable<Photo[]>;
 
   constructor(
     private readonly router: Router,

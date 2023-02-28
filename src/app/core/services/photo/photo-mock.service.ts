@@ -17,15 +17,18 @@ const MAX_DELAY = 300;
   providedIn: 'root'
 })
 export class PhotoMockService implements PhotoServiceInterface {
-  private readonly mockPhotos: Photo[] = PHOTO_NAMES
-    .map((photoName) => this.getMockPhotoData(photoName));
+  /** Array of photos which could be used for random photo generation. */
+  private mockPhotosForGeneration: Photo[] = this.getMockPhotosArr();
+
+  /** Array of all photos to search in. */
+  private readonly mockPhotos: Photo[] = this.getMockPhotosArr();
 
   constructor(
     private readonly utilsService: UtilsService,
   ) { }
 
   getRandomPhoto(): Observable<Photo> {
-    return of(this.utilsService.getRandomElementFromArray(this.mockPhotos))
+    return of(this.getRandomPhotoFromArr())
       .pipe(
         delay(this.getRandomDelay())
       );
@@ -34,7 +37,7 @@ export class PhotoMockService implements PhotoServiceInterface {
   getRandomPhotos(n: number): Observable<Photo[]> {
     const arr: Photo[] = Array(n)
       .fill(n)
-      .map(() => this.utilsService.getRandomElementFromArray(this.mockPhotos));
+      .map(() => this.getRandomPhotoFromArr());
     return of(arr)
       .pipe(
         delay(this.getRandomDelay())
@@ -44,6 +47,19 @@ export class PhotoMockService implements PhotoServiceInterface {
   getPhoto(id: string): Observable<Photo> {
     const photo = this.mockPhotos.find((photo) => photo.id === id);
     return photo ? of(photo) : throwError(() => new HttpErrorResponse({ status: 404 }));
+  }
+
+  private getMockPhotosArr(): Photo[] {
+    return PHOTO_NAMES.map((photoName) => this.getMockPhotoData(photoName));
+  }
+
+  private getRandomPhotoFromArr(): Photo {
+    if (!this.mockPhotos.length) {
+      this.mockPhotosForGeneration = this.getMockPhotosArr();
+    }
+    const photo = this.utilsService.getRandomElementFromArray(this.mockPhotosForGeneration);
+    this.mockPhotosForGeneration = this.mockPhotos.filter((mockPhoto) => mockPhoto !== photo);
+    return photo;
   }
 
   private getMockPhotoData(photoName: string): Photo {
