@@ -1,0 +1,8 @@
+<div class="photos">
+    <app-photo-card
+        *ngFor="let photo of (photos$ | async)"
+        class="photo"
+        [photo]="photo"
+        (imageClick)="goToPhoto(photo)"
+    ></app-photo-card>
+</div>

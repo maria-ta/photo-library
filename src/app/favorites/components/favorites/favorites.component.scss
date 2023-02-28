@@ -1,0 +1,12 @@
+$photos-per-row: 3;
+$gap: 16px;
+
+.photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.photo {
+    width: calc((100% - $gap * ($photos-per-row - 1)) / $photos-per-row);
+}

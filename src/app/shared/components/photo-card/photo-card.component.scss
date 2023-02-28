@@ -1,0 +1,14 @@
+:host {
+    position: relative;
+}
+
+.photo-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.photo-like-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}

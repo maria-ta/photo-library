@@ -1,0 +1,30 @@
+<mat-card *ngIf="photo" class="example-card">
+    <img
+        #image
+        mat-card-image
+        class="photo-image"
+        [src]="photo.urls.small"
+        [alt]="photo.alt_description"
+        [ngStyle]="{'height.px': imageSize}"
+        (click)="clickImage()"
+    >
+    <mat-card-content>
+        <p>
+            Photo by
+            <a [href]="photo.user.links.html | unsplashLink">
+                {{photo.user.name}}
+            </a>
+            on <a [href]="'https://unsplash.com/' | unsplashLink">Unsplash</a>
+
+            <button
+                *appIfLiked="photo.id"
+                mat-mini-fab
+                class="photo-like-button"
+                aria-label="Like"
+                (click)="clickImage()"
+            >
+                <mat-icon>favorite</mat-icon>
+            </button>
+        </p>
+    </mat-card-content>
+</mat-card>
