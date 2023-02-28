@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { APP_TITLE } from '@core/constants/app-title';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  title = 'photo-library';
+  title = APP_TITLE;
 }

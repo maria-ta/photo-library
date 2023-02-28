@@ -11,7 +11,7 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'photo-library'`, () => {
-    expect(component.title).toEqual('photo-library');
+  it(`should have as title 'PhotoLibrary App'`, () => {
+    expect(component.title).toEqual('PhotoLibrary App');
   });
 });
