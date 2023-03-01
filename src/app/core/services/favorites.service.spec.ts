@@ -2,7 +2,7 @@ import { skip } from 'rxjs';
 import { FavoritesService } from './favorites.service';
 
 const MOCK_STORED_FAVORITES_STR = '["id-1"]';
-const MOCK_STORED_FAVORITES = ["id-1"];
+const MOCK_STORED_FAVORITES = ['id-1'];
 
 describe('FavoritesService', () => {
   let service: FavoritesService;

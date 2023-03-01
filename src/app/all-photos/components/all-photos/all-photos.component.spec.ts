@@ -89,7 +89,7 @@ describe('AllPhotosComponent', () => {
       component.ngOnInit();
       tick(AWAIT_DELAY_MILISECONDS);
 
-      expect(titleMock.setTitle).toHaveBeenCalledWith('All photos | PhotoLibrary App');
+      expect(titleMock.setTitle).toHaveBeenCalledWith('Photos | PhotoLibrary App');
     }));
 
     it('should get intial number of photos', fakeAsync(() => {

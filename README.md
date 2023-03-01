@@ -8,7 +8,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 In order to use real Unsplash API, set up the [BE server](https://github.com/maria-ta/photo-library-be). The server will provide config for the app (Unsplash app name) and will act as a proxy to Unsplash API (as it requires an access key to use it).
 
-It is possible to run the app without the BE server. In that case work with API will be emulated with mock data and images from assets.
+It is possible to run the app without the BE server. In that case work with API will be emulated with mock data and images from assets. Same photos can appear multiple times on Photos page.
 
 ## Development server
 

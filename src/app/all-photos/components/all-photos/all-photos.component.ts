@@ -44,7 +44,7 @@ export class AllPhotosComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.title.setTitle(`All photos${APP_TITLE_POSTFIX}`);
+    this.title.setTitle(`Photos${APP_TITLE_POSTFIX}`);
     this.subscribeToLoadMore();
     this.loadMore(INITIAL_NUMBER_OF_PHOTOS_TO_LOAD);
   }

@@ -32,6 +32,10 @@
           }
         ],
         "@typescript-eslint/no-empty-function": "off",
+        "quotes": [
+          "error",
+          "single"
+        ],
         "quote-props": [
           "error",
           "as-needed"
