@@ -8,10 +8,9 @@ import {
   combineLatest,
   Observable,
   of,
-  OperatorFunction,
   switchMap
 } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-favorites',
@@ -19,9 +18,6 @@ import { catchError, map, tap } from 'rxjs/operators';
   styleUrls: ['./favorites.component.scss']
 })
 export class FavoritesComponent implements OnInit {
-  isLoading = true;
-  hasPhotos = true;
-
   photos$: Observable<Photo[]> = this.favoritesService.getFavorites$()
     .pipe(
       switchMap((ids) => {
@@ -30,11 +26,7 @@ export class FavoritesComponent implements OnInit {
         ).pipe(
           map((details) => details.filter((photo) => !!photo))
         );
-      }) as OperatorFunction<string[], Photo[]>,
-      tap((photos) => {
-        this.isLoading = false;
-        this.hasPhotos = !!photos.length;
-      })
+      }),
     ) as Observable<Photo[]>;
 
   constructor(
