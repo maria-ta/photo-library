@@ -69,7 +69,7 @@ describe('AllPhotosComponent', () => {
       getRandomPhoto: jasmine.createSpy().and.returnValue(throwError(() => ({}))),
     };
     favoritesServiceMock = {
-      toggleFavourites: jasmine.createSpy()
+      toggleFavorites: jasmine.createSpy()
     };
     component = new AllPhotosComponent(
       windowMock,
@@ -233,7 +233,7 @@ describe('AllPhotosComponent', () => {
 
       component.toggleFavorite(photo);
 
-      expect(favoritesServiceMock.toggleFavourites).toHaveBeenCalledWith(photo);
+      expect(favoritesServiceMock.toggleFavorites).toHaveBeenCalledWith(photo);
     });
   });
 });

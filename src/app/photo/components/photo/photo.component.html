@@ -1,8 +1,13 @@
-<div *ngIf="photo$ | async" class="photo">
+<div *ngIf="photo" class="photo">
     <img
         class="photo-image"
-        [src]="(photo$ | async)?.urls?.regular"
-        [alt]="(photo$ | async)?.alt_description"
+        [src]="photo.urls.regular"
+        [alt]="photo.alt_description"
     >
-    <button mat-flat-button color="primary">Add to favourites</button>
+    <button
+        *appIfLiked="photo.id"
+        mat-flat-button
+        color="primary"
+        (click)="toggleFavorites()"
+    >Remove from favourites</button>
 </div>

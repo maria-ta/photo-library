@@ -73,7 +73,7 @@ export class AllPhotosComponent implements OnInit, OnDestroy {
   }
 
   toggleFavorite(photo: Photo): void {
-    this.favoritesService.toggleFavourites(photo);
+    this.favoritesService.toggleFavorites(photo);
   }
 
   private subscribeToLoadMore(): void {

@@ -63,7 +63,7 @@ describe('FavoritesService', () => {
     });
   });
 
-  describe('#toggleFavourites', () => {
+  describe('#toggleFavorites', () => {
     it('should add photo id to favorites when no such id in favorites', (done) => {
       const id = 'id-12345';
       service.getFavorites$()
@@ -73,7 +73,7 @@ describe('FavoritesService', () => {
           done();
         });
 
-      service.toggleFavourites({ id } as any);
+      service.toggleFavorites({ id } as any);
     });
 
     it('should remove photo id from favorites when there is such id in favorites', (done) => {
@@ -85,7 +85,7 @@ describe('FavoritesService', () => {
           done();
         });
 
-      service.toggleFavourites({ id } as any);
+      service.toggleFavorites({ id } as any);
     });
   });
 });
