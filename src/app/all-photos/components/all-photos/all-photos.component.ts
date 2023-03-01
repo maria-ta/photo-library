@@ -28,9 +28,11 @@ const MIN_DIFF_REQUIRED_TO_LOAD_MORE = 200;
 export class AllPhotosComponent implements OnInit, OnDestroy {
   photos: Photo[] = [];
 
-  isLoading = false;
+  isLoading = true;
 
   @ViewChild('photosContainer') photosContainer?: ElementRef;
+
+  private canLoadMore = true;
 
   private readonly load$ = new Subject<number>();
   private readonly destroy$ = new Subject<void>();
@@ -57,7 +59,7 @@ export class AllPhotosComponent implements OnInit, OnDestroy {
   @HostListener('window:scroll')
   scroll(): void {
     const element = this.photosContainer?.nativeElement;
-    if (element && !this.isLoading) {
+    if (element && !this.isLoading && this.canLoadMore) {
       const { bottom } = element.getBoundingClientRect();
       const viewportHeight = this.window.visualViewport?.height || 0;
       const shouldLoadMore = (bottom - viewportHeight) < MIN_DIFF_REQUIRED_TO_LOAD_MORE;
@@ -84,6 +86,9 @@ export class AllPhotosComponent implements OnInit, OnDestroy {
           this.photos.push(...photos);
           this.isLoading = false;
           this.cd.detectChanges();
+          if (!photos.length) {
+            this.canLoadMore = false;
+          }
         }),
         takeUntil(this.destroy$)
       )

@@ -18,12 +18,16 @@ const PHOTO_DETAILS = {
 describe('PhotoComponent', () => {
   let component: PhotoComponent;
 
+  let changeDetectorRefMock: any;
   let routeMock: any;
   let titleMock: any;
   let photoServiceMock: any;
   let favoritesServiceMock: any;
 
   beforeEach(async () => {
+    changeDetectorRefMock = {
+      detectChanges: jasmine.createSpy()
+    };
     routeMock = {
       params: new BehaviorSubject<{ id: string }>({ id: ID }),
     };
@@ -38,6 +42,7 @@ describe('PhotoComponent', () => {
       toggleFavorites: jasmine.createSpy()
     };
     component = new PhotoComponent(
+      changeDetectorRefMock,
       routeMock,
       titleMock,
       photoServiceMock,
@@ -61,6 +66,12 @@ describe('PhotoComponent', () => {
 
       expect(titleMock.setTitle)
         .toHaveBeenCalledWith(`${DESCRIPTION} - Photo by ${USERNAME} | PhotoLibrary App`);
+    }));
+
+    it('should detect changes', fakeAsync(() => {
+      component.ngOnInit();
+
+      expect(changeDetectorRefMock.detectChanges).toHaveBeenCalled();
     }));
 
     describe('when component was destroyed', () => {
@@ -90,6 +101,14 @@ describe('PhotoComponent', () => {
         tick(6000);
 
         expect(titleMock.setTitle).not.toHaveBeenCalled();
+      }));
+
+      it('should not detect changes', fakeAsync(() => {
+        component.ngOnInit();
+        component.ngOnDestroy();
+        tick(6000);
+
+        expect(changeDetectorRefMock.detectChanges).not.toHaveBeenCalled();
       }));
     });
   });

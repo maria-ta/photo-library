@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { APP_TITLE_POSTFIX } from '@core/constants/app-title';
@@ -18,6 +18,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   constructor(
+    private readonly cd: ChangeDetectorRef,
     private readonly route: ActivatedRoute,
     private readonly title: Title,
     private readonly photoService: PhotoService,
@@ -31,6 +32,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
           this.photo = photo;
           // eslint-disable-next-line max-len
           this.title.setTitle(`${photo.description} - Photo by ${photo.user.name}${APP_TITLE_POSTFIX}`);
+          this.cd.detectChanges();
         }),
         takeUntil(this.destroy$)
       )
