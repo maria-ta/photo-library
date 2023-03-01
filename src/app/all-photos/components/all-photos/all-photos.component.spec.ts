@@ -47,6 +47,7 @@ describe('AllPhotosComponent', () => {
 
   let windowMock: any;
   let changeDetectorRefMock: any;
+  let titleMock: any;
   let photoServiceMock: any;
   let favoritesServiceMock: any;
 
@@ -59,17 +60,21 @@ describe('AllPhotosComponent', () => {
     changeDetectorRefMock = {
       detectChanges: jasmine.createSpy()
     };
+    titleMock = {
+      setTitle: jasmine.createSpy()
+    };
     photoServiceMock = {
       getRandomPhotos: jasmine.createSpy()
         .and.callFake((n) => of(getMockPhotoArrayOfLength(n)).pipe(delay(DELAY_MILISECONDS))),
       getRandomPhoto: jasmine.createSpy().and.returnValue(throwError(() => ({}))),
     };
     favoritesServiceMock = {
-      toggleFavourites: jasmine.createSpy()
+      toggleFavorites: jasmine.createSpy()
     };
     component = new AllPhotosComponent(
       windowMock,
       changeDetectorRefMock,
+      titleMock,
       photoServiceMock,
       favoritesServiceMock
     );
@@ -80,6 +85,13 @@ describe('AllPhotosComponent', () => {
   });
 
   describe('#ngOnInit', () => {
+    it('should set page title', fakeAsync(() => {
+      component.ngOnInit();
+      tick(AWAIT_DELAY_MILISECONDS);
+
+      expect(titleMock.setTitle).toHaveBeenCalledWith('Photos | PhotoLibrary App');
+    }));
+
     it('should get intial number of photos', fakeAsync(() => {
       component.ngOnInit();
       tick(AWAIT_DELAY_MILISECONDS);
@@ -221,7 +233,7 @@ describe('AllPhotosComponent', () => {
 
       component.toggleFavorite(photo);
 
-      expect(favoritesServiceMock.toggleFavourites).toHaveBeenCalledWith(photo);
+      expect(favoritesServiceMock.toggleFavorites).toHaveBeenCalledWith(photo);
     });
   });
 });

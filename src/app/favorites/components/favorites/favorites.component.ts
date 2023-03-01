@@ -1,29 +1,44 @@
-import { Inject } from '@angular/core';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { APP_TITLE_POSTFIX } from '@core/constants/app-title';
 import { Photo } from '@core/models';
-import { FavoritesService } from '@core/services/favorites.service';
-import { PhotoService, PHOTO_SERVICE } from '@core/services/photo/photo-service';
-import { combineLatest } from 'rxjs';
-import { switchMap } from 'rxjs';
-import { Observable } from 'rxjs';
+import { FavoritesService, PhotoService } from '@core/services';
+import {
+  combineLatest,
+  Observable,
+  of,
+  switchMap
+} from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss']
 })
-export class FavoritesComponent {
+export class FavoritesComponent implements OnInit {
   photos$: Observable<Photo[]> = this.favoritesService.getFavorites$()
     .pipe(
-      switchMap((ids) => combineLatest(ids.map((id) => this.photoService.getPhoto(id))))
-    );
+      switchMap((ids) => {
+        return combineLatest(
+          ids.map((id) => this.photoService.getPhoto(id).pipe(catchError(() => of(null))))
+        ).pipe(
+          map((details) => details.filter((photo) => !!photo))
+        );
+      })
+    ) as Observable<Photo[]>;
 
   constructor(
     private readonly router: Router,
+    private readonly title: Title,
     private readonly favoritesService: FavoritesService,
-    @Inject(PHOTO_SERVICE) private readonly photoService: PhotoService
+    private readonly photoService: PhotoService
   ) { }
+
+  ngOnInit(): void {
+    this.title.setTitle(`Favorites${APP_TITLE_POSTFIX}`);
+  }
 
   goToPhoto(photo: Photo): void {
     this.router.navigate(['/photo', photo.id]);

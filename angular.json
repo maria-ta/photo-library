@@ -74,7 +74,8 @@
               "browserTarget": "photo-library:build:production"
             },
             "development": {
-              "browserTarget": "photo-library:build:development"
+              "browserTarget": "photo-library:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

@@ -3,10 +3,12 @@
         #image
         mat-card-image
         class="photo-image"
+        tabindex="0"
         [src]="photo.urls.small"
         [alt]="photo.alt_description"
         [ngStyle]="{'height.px': imageSize}"
         (click)="clickImage()"
+        (keydown.enter)="clickImage()"
     >
     <mat-card-content>
         <p>

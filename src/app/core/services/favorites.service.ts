@@ -29,7 +29,7 @@ export class FavoritesService {
     return indexInFavorites !== -1;
   }
 
-  toggleFavourites(photo: Photo): void {
+  toggleFavorites(photo: Photo): void {
     const currentFavorites = this.favorites$.value;
     const indexInFavorites = currentFavorites.indexOf(photo.id);
     const isPhotoInFavorites = indexInFavorites !== -1;

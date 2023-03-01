@@ -10,9 +10,10 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { switchMap, tap, takeUntil } from 'rxjs/operators';
-import { PhotoService, PHOTO_SERVICE } from '@core/services/photo/photo-service';
 import { Photo } from '@core/models';
-import { FavoritesService } from '@core/services/favorites.service';
+import { FavoritesService, PhotoService } from '@core/services';
+import { Title } from '@angular/platform-browser';
+import { APP_TITLE_POSTFIX } from '@core/constants/app-title';
 
 const INITIAL_NUMBER_OF_PHOTOS_TO_LOAD = 9;
 const NUMBER_OF_PHOTOS_TO_LOAD = 3;
@@ -37,11 +38,13 @@ export class AllPhotosComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(Window) private readonly window: Window,
     private readonly cd: ChangeDetectorRef,
-    @Inject(PHOTO_SERVICE) private readonly photoService: PhotoService,
+    private readonly title: Title,
+    private readonly photoService: PhotoService,
     private readonly favoritesService: FavoritesService,
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle(`Photos${APP_TITLE_POSTFIX}`);
     this.subscribeToLoadMore();
     this.loadMore(INITIAL_NUMBER_OF_PHOTOS_TO_LOAD);
   }
@@ -70,7 +73,7 @@ export class AllPhotosComponent implements OnInit, OnDestroy {
   }
 
   toggleFavorite(photo: Photo): void {
-    this.favoritesService.toggleFavourites(photo);
+    this.favoritesService.toggleFavorites(photo);
   }
 
   private subscribeToLoadMore(): void {

@@ -8,12 +8,16 @@ describe('FavoritesComponent', () => {
   let component: FavoritesComponent;
 
   let routerMock: any;
+  let titleMock: any;
   let favoritesServiceMock: any;
   let photoServiceMock: any;
 
   beforeEach(async () => {
     routerMock = {
       navigate: jasmine.createSpy(),
+    };
+    titleMock = {
+      setTitle: jasmine.createSpy()
     };
     favoritesServiceMock = {
       getFavorites$: jasmine.createSpy().and.returnValue(of(FAVORITES_MOCK))
@@ -23,6 +27,7 @@ describe('FavoritesComponent', () => {
     };
     component = new FavoritesComponent(
       routerMock,
+      titleMock,
       favoritesServiceMock,
       photoServiceMock
     );
@@ -41,6 +46,14 @@ describe('FavoritesComponent', () => {
     component.photos$.subscribe((photos) => {
       expect(photos).toEqual(expectedPhotosDetails);
       done();
+    });
+  });
+
+  describe('#ngOnInit', () => {
+    it('should set page title', () => {
+      component.ngOnInit();
+
+      expect(titleMock.setTitle).toHaveBeenCalledWith('Favorites | PhotoLibrary App');
     });
   });
 
