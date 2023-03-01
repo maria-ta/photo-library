@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FavoritesRoutingModule } from './favorites-routing.module';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { SharedModule } from '@shared/shared.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { SharedModule } from '@shared/shared.module';
   imports: [
     CommonModule,
     FavoritesRoutingModule,
-    SharedModule
+    SharedModule,
+    MatProgressSpinnerModule
   ]
 })
 export class FavoritesModule {

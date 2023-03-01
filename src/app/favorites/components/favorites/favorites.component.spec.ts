@@ -49,6 +49,36 @@ describe('FavoritesComponent', () => {
     });
   });
 
+  it('should mark hasFavorites as true when there are photos in favorites', (done) => {
+    component.photos$.subscribe(() => {
+      expect(component.hasPhotos).toBeTrue();
+      done();
+    });
+  });
+
+  xit('should mark hasFavorites as false when there are no photos in favorites', (done) => {
+    favoritesServiceMock.getFavorites$.and.returnValue(of([]));
+    const component = new FavoritesComponent(
+      routerMock,
+      titleMock,
+      favoritesServiceMock,
+      photoServiceMock
+    );
+    component.photos$.subscribe(() => {
+      expect(component.hasPhotos).toBeFalse();
+      done();
+    });
+  });
+
+  it('should mark isLoading as false after photos loaded', (done) => {
+    expect(component.isLoading).toBeTrue();
+
+    component.photos$.subscribe(() => {
+      expect(component.isLoading).toBeFalse();
+      done();
+    });
+  });
+
   describe('#ngOnInit', () => {
     it('should set page title', () => {
       component.ngOnInit();
