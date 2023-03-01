@@ -1,3 +1,5 @@
+<p *ngIf="!isLoading && !photos.length">No photos found.</p>
+
 <div #photosContainer class="photos">
     <app-photo-card
         *ngFor="let photo of photos"

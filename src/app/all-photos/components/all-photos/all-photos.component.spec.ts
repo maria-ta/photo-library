@@ -111,7 +111,7 @@ describe('AllPhotosComponent', () => {
   });
 
   describe('#scroll', () => {
-    describe('when there is a container element and photos are not loading', () => {
+    describe('when there is a container element and photos are not loading and can load more photos', () => {
       let nativeElementMock: any;
 
       beforeEach(() => {
@@ -123,6 +123,18 @@ describe('AllPhotosComponent', () => {
         };
         component.isLoading = false;
       });
+
+      it('should not load more photos when an empty array was receieved before', fakeAsync(() => {
+        photoServiceMock.getRandomPhotos.and.returnValue(of([]).pipe(delay(DELAY_SECONDS)));
+        component.ngOnInit();
+        tick(AWAIT_DELAY_MILISECONDS);
+        photoServiceMock.getRandomPhotos.calls.reset();
+        component.scroll();
+        tick(AWAIT_DELAY_MILISECONDS);
+
+        expect(component.photos).toEqual([]);
+        expect(photoServiceMock.getRandomPhotos).not.toHaveBeenCalled();
+      }));
 
       it('should load 3 more photos when user scrolled almost to the bottom of the container', fakeAsync(() => {
         component.ngOnInit();
