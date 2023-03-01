@@ -1,4 +1,4 @@
-<ng-container *ngIf="!isLoading && !hasPhotos">
+<ng-container *ngIf="!(photos$ | async)?.length">
     <h2>No photos in Favorites</h2>
     <p>
         Go to
@@ -6,8 +6,6 @@
         and add some photos to favorites by clicking on an image
     </p>
 </ng-container>
-
-<mat-spinner *ngIf="isLoading"></mat-spinner>
 
 <div class="photos">
     <app-photo-card
